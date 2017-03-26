@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <body>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+  <script src="requestFromFlask.js"></script>
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="http://d3js.org/topojson.v1.min.js"></script>
   <!-- I recommend you host this file on your own, since this will change without warning -->
@@ -10,28 +12,32 @@
 
      <script>
        //basic map config with custom fills, mercator projection
-      var map = new Datamap({
+        var map = new Datamap({
         scope: 'world',
         element: document.getElementById('container1'),
         projection: 'mercator',
         height: 500,
         fills: {
-          defaultFill: '#f0af0a',
+          defaultFill: 'grey',
           bt50: 'blue',
           gt50: 'orange'
         },
 
         data: {
           //get countries from charlie(need list for this api)
-          USA: {fillKey: 'bt50' },
-          RUS: {fillKey: 'bt50' },
-          CAN: {fillKey: 'bt50' },
-          BRA: {fillKey: 'gt50' },
-          ARG: {fillKey: 'gt50'},
-          COL: {fillKey: 'gt50' },
-          AUS: {fillKey: 'gt50' },
-          ZAF: {fillKey: 'gt50' },
-          MAD: {fillKey: 'gt50' }
         }
       })
+      var increment = 255/4;
+      function createColor(emotionNumber){
+        var red = 255 - (increment * emotionNumber);
+        var green = increment * feelings;
+        var blue = 0;
+        var rgb = 'rgb(' + red + green + blue + ')';
+      }
+
+      for(eachCountry){
+      map.updateChoropleth(
+        get country code: createColor(get emotion number)
+      });
+    }
 </script>
