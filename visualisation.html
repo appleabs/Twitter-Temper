@@ -1,64 +1,66 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+
 <body>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="http://d3js.org/d3.v3.min.js"></script>
-  <script src="http://d3js.org/topojson.v1.min.js"></script>
-  <!-- I recommend you host this file on your own, since this will change without warning -->
-  <script src="http://datamaps.github.io/scripts/datamaps.world.min.js?v=1"></script>
-  <div id="container1" style="position: relative; width: 80%; max-height: 450px;"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <!-- I recommend you host this file on your own, since this will change without warning -->
+    <script src="http://datamaps.github.io/scripts/datamaps.world.min.js?v=1"></script>
+    <div id="container1" style="position: relative; width: 80%; max-height: 450px;"></div>
 
-  <script>
-
-  // makes the request
-  function makeAJAXRequest(){
-    var dataToTransmit = "testing";
-    document.addEventListener("DOMContentLoaded", function(event){
-      $.ajax({
-        url: "/",
-        type: "POST",
-        data: dataToTransmit,
-        cache: false,
-        success: function(returnedData) {
-          var receivedJSON = JSON.parse(returnedData);
-          return receivedJSON;
+    <script>
+        // makes the request
+        function makeAJAXRequest() {
+            var dataToTransmit = "testing";
+            document.addEventListener("DOMContentLoaded", function(event) {
+                $.ajax({
+                    url: "/",
+                    type: "POST",
+                    data: dataToTransmit,
+                    cache: false,
+                    success: function(returnedData) {
+                        var receivedJSON = JSON.parse(returnedData);
+                        return receivedJSON;
+                    }
+                })
+            });
         }
-      })
-    });
-  }
 
-  document.addEventListener("DOMContentLoaded", function(event){
-    //basic map config with custom fills, mercator projection
-    var receivedJSON = makeAJAXRequest();
-    console.log(receivedJSON);
-    var map = new Datamap({
-      scope: 'world',
-      element: document.getElementById('container1'),
-      projection: 'mercator',
-      height: 500,
-      fills: {
-        defaultFill: 'grey',
-        bt50: 'blue',
-        gt50: 'orange'
-      },
+        document.addEventListener("DOMContentLoaded", function(event) {
+            //basic map config with custom fills, mercator projection
+            var receivedJSON = makeAJAXRequest();
+            console.log(receivedJSON);
+            var map = new Datamap({
+                scope: 'world',
+                element: document.getElementById('container1'),
+                projection: 'mercator',
+                height: 500,
+                fills: {
+                    defaultFill: 'grey',
+                    bt50: 'blue',
+                    gt50: 'orange'
+                },
 
-      data: {
-        //get countries from charlie(need list for this api)
-      }
-    })
-    var increment = 255/4;
-    function createColor(emotionNumber){
-      var red = 255 - (increment * emotionNumber);
-      var green = increment * feelings;
-      var blue = 0;
-      var rgb = 'rgb(' + red + green + blue + ')';
-    }
+                data: {
+                    //get countries from charlie(need list for this api)
 
-    for(country in receivedJSON){
-    console.log("hello :3");
-      map.updateChoropleth();
-      //get country code: createColor(get emotion number)
-    }
-  });
-  </script>
-  <script src="requestFromFlask.js"></script>
+                }
+            })
+            var increment = 255 / 4;
+
+            function createColor(emotionNumber) {
+                var red = 255 - (increment * emotionNumber);
+                var green = increment * feelings;
+                var blue = 0;
+                var rgb = 'rgb(' + red + green + blue + ')';
+            }
+
+            for (country in receivedJSON) {
+                console.log("hello :3");
+                map.updateChoropleth();
+                //get country code: createColor(get emotion number)
+            }
+        });
+    </script>
+    <script src="requestFromFlask.js"></script>

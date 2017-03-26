@@ -8,6 +8,7 @@ def getPolarities():
         data = json.load(data_file)
 
     def getPolarity(woeid,a3):
+        print("\n#################")
         print("Country: " + a3 + "\n")
 
         import time
@@ -69,8 +70,8 @@ def getPolarities():
 
         print("\nno. of tweets: " + str(len(polarityList)))
         print("total: " + str(total))
-        print("average: " + str(total/len(polarityList)))
         print("time taken: " + str(time.time() - startTime))
+        print("\nSENTIMENT POLARITY: " + str(total/len(polarityList)))
 
         returnVal = {}
 
@@ -80,3 +81,5 @@ def getPolarities():
         polList.append(getPolarity(country['WOEID'], country['a3']))
 
     return polList
+
+print(getPolarities())
