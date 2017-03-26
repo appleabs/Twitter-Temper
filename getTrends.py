@@ -79,4 +79,4 @@ def getPolarities():
     for country in data:
         polList.append(getPolarity(country['WOEID'], country['a3']))
 
-    print(polList)
+    return polList
