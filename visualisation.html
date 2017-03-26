@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<body>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://d3js.org/topojson.v1.min.js"></script>
+  <!-- I recommend you host this file on your own, since this will change without warning -->
+  <script src="http://datamaps.github.io/scripts/datamaps.world.min.js?v=1"></script>
+  <div id="container1" style="position: relative; width: 80%; max-height: 450px;"></div>
+
+
+     <script>
+       //basic map config with custom fills, mercator projection
+      var map = new Datamap({
+        scope: 'world',
+        element: document.getElementById('container1'),
+        projection: 'mercator',
+        height: 500,
+        fills: {
+          defaultFill: '#f0af0a',
+          bt50: 'blue',
+          gt50: 'orange'
+        },
+
+        data: {
+          //get countries from charlie(need list for this api)
+          USA: {fillKey: 'bt50' },
+          RUS: {fillKey: 'bt50' },
+          CAN: {fillKey: 'bt50' },
+          BRA: {fillKey: 'gt50' },
+          ARG: {fillKey: 'gt50'},
+          COL: {fillKey: 'gt50' },
+          AUS: {fillKey: 'gt50' },
+          ZAF: {fillKey: 'gt50' },
+          MAD: {fillKey: 'gt50' }
+        }
+      })
+</script>
